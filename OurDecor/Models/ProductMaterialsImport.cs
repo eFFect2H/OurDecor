@@ -9,5 +9,8 @@
 
         public int MateriaId { get; set; }
         public MaterialImport Material { get; set; }
+
+        public int ProductsImportId { get; set; }
+        public ProductsImport Product { get; set; }
     }
 }

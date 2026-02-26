@@ -11,5 +11,7 @@
 
         public int ProductTypeId { get; set; }
         public ProductTypeImport ProductType { get; set; }
+
+        public List<ProductMaterialsImport> ProductMaterialsImports { get; set; }
     }
 }

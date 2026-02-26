@@ -12,6 +12,8 @@ namespace OurDecor
         public DbSet<ProductMaterialsImport> ProductMaterialsImports { get; set; }
         public DbSet<ProductsImport> ProductsImports { get; set; }  
         public DbSet<ProductTypeImport> ProductTypeImports { get; set; }    
+        public DbSet<User> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -31,6 +33,20 @@ namespace OurDecor
                 entity.HasKey(e => e.Id);
 
                 entity.HasMany(e => e.ProductsImports).WithOne(e => e.ProductType).HasForeignKey(e => e.ProductTypeId);
+            });
+
+            modelBuilder.Entity<ProductsImport>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+
+                entity.HasMany(e => e.ProductMaterialsImports).WithOne(e => e.Product).HasForeignKey(e => e.ProductsImportId);
+            });
+
+            modelBuilder.Entity<Role>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+
+                entity.HasMany(e => e.Users).WithOne(r => r.Role).HasForeignKey(r => r.RoleId);
             });
         }
     }
