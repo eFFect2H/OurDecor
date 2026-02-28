@@ -11,9 +11,9 @@
         public int QuantityPackage { get; set; }
         public string Metering {  get; set; }
 
-        public int MaterialTypeId { get; set; }
-        public MaterialTypeImport MaterialType { get; set; }
+        public int? MaterialTypeId { get; set; }
+        public MaterialTypeImport? MaterialType { get; set; }
 
-        public List<ProductMaterialsImport> ProductMaterials { get; set; }
+        public List<ProductMaterialsImport>? ProductMaterials { get; set; }
     }
 }

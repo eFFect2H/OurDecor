@@ -7,11 +7,11 @@ namespace OurDecor
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-        public DbSet<MaterialImport> MaterialImport { get; set; }
-        public DbSet<MaterialTypeImport> MaterialTypeImports { get; set; }
-        public DbSet<ProductMaterialsImport> ProductMaterialsImports { get; set; }
-        public DbSet<ProductsImport> ProductsImports { get; set; }  
-        public DbSet<ProductTypeImport> ProductTypeImports { get; set; }    
+        public DbSet<MaterialImport> Material { get; set; }
+        public DbSet<MaterialTypeImport> MaterialType { get; set; }
+        public DbSet<ProductMaterialsImport> ProductMaterials { get; set; }
+        public DbSet<ProductsImport> Products { get; set; }  
+        public DbSet<ProductTypeImport> ProductType { get; set; }    
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
 
