@@ -9,7 +9,7 @@ namespace OurDecor.Controller
     {
         public int Id { get; set; }
         public string? TypeProduct { get; set; }
-        public string NameProduct { get; set; }
+        public string? NameProduct { get; set; }
         public int Article { get; set; }
         public decimal MinPricePartner { get; set; }
         public decimal WidthRoll { get; set; }
@@ -39,8 +39,7 @@ namespace OurDecor.Controller
                     Article = e.Article,
                     MinPricePartner = e.ProductMaterialsImports.Sum(em => em.QuantityMaterial * em.Material.UnitPrice),
                     WidthRoll = e.WidthRoll
-                })
-                .ToListAsync();
+                }).ToListAsync();
                 
             return Ok(result);
         }

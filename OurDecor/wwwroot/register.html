@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+</head>
+<body>
+    <h2>Регистрация</h2>
+
+    <input id="login" placeholder="Логин"><br><br>
+    <input id="password" type="password" placeholder="Пароль"><br><br>
+    <select id="role">
+        <option value="1">Admin</option>
+        <option value="2" selected>User</option>
+    </select><br><br>
+
+    <button onclick="register()">Зарегистрироваться</button>
+
+    <script>
+        const API = "https://localhost:7026/api/account"
+
+        async function register() {
+            const response = await fetch(`${API}/register`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    login: document.getElementById('login').value,
+                    passwordHash: document.getElementById('password').value,
+                    roleId: parseInt(document.getElementById('role').value)
+                })
+            });
+
+            const text = await response.text();
+            alert(text);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Вход</title>
+</head>
+<body>
+    <h2>Авторизация</h2>
+
+    <input id="login" placeholder="Логин"><br><br>
+    <input id="password" type="password" placeholder="Пароль"><br><br>
+
+    <button onclick="login()">Войти</button>
+
+    <script>
+        const API = "https://localhost:7026/api/account"
+
+        async function login() {
+            const response = await fetch(`${API}/login`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    login: document.getElementById('login').value,
+                    passwordHash: document.getElementById('password').value
+                })
+            });
+
+            const text = await response.text();
+            alert(text);
+        }
+    </script>
+</body>
+</html>
