@@ -1,10 +1,82 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-    <meta charset="utf-8" />
-    <title></title>
+    <meta charset="UTF-8">
+    <title>Продукция компании</title>
+    <link rel="stylesheet" href="css/site.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
+    <header>
+        <img src="images/logo.png" alt="Логотип" class="logo">
+        <h1>Список продукции</h1>
+    </header>
+    <main>
+        <table id="products-table" class="table">
+            <thead>
+                <tr>
+                    <th>Артикул</th>
+                    <th>Тип продукции</th>
+                    <th>Наименование</th>
+                    <th>Стоимость</th>
+                    <th>Ширина рулона (м)</th>
+                    <th>Действия</th>
+                </tr>
+            </thead>
+            <tbody id="products-body">
+                
+            </tbody>
+        </table>
+        <button id="add-product" class="btn btn-primary">Добавить продукцию</button>
+    </main>
+    <script>
+        const API_BASE = '/api';
 
+        async function fetchJson(url, options = {}) {
+            const response = await fetch(url, options);
+            if (!response.ok) {
+                const error = await response.text();
+                throw new Error(error);
+            }
+            return response.json();
+        }
+
+        async function getProducts() {
+            return fetchJson(`${API_BASE}/products`);
+        }
+
+        async function getProduct(id) {
+            return fetchJson(`${API_BASE}/products/${id}`);
+        }
+
+        
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const products = await getProducts();
+                const tbody = document.getElementById('products-body');
+                tbody.innerHTML = products.map(p => `
+            <tr>
+                <td>${p.article}</td>
+                <td>${p.productTypeName}</td>
+                <td>${p.name}</td>
+                <td>${p.cost.toFixed(2)}</td>
+                <td>${p.rollWidth.toFixed(2)}</td>
+                <td>
+                    <a href="product-form.html?id=${p.id}" class="edit-link"></a>
+                    <a href="product-materials.html?id=${p.id}" class="materials-link"></a>
+                </td>
+            </tr>
+        `).join('');
+            } catch (error) {
+                alert('Ошибка загрузки продукции: ' + error.message);
+            }
+
+            document.getElementById('add-product').addEventListener('click', () => {
+                window.location.href = 'product-form.html';
+            });
+        });
+
+    </script>
+    
 </body>
 </html>

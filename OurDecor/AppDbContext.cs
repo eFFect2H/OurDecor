@@ -33,6 +33,13 @@ namespace OurDecor
                 entity.HasKey(e => e.Id);
 
                 entity.HasMany(e => e.ProductsImports).WithOne(e => e.ProductType).HasForeignKey(e => e.ProductTypeId);
+
+                entity.HasData(
+                    new ProductTypeImport { Id = 1, TypeProduct = "Декоративные обои", CoefficentProduct = 5.5m },
+                    new ProductTypeImport { Id = 2, TypeProduct = "Фотообои", CoefficentProduct = 7.54m },
+                    new ProductTypeImport { Id = 3, TypeProduct = "Обои под покрску", CoefficentProduct = 3.25m },
+                    new ProductTypeImport { Id = 4, TypeProduct = "Cntrkjj,jb", CoefficentProduct = 2.5m }
+                );
             });
 
             modelBuilder.Entity<ProductsImport>(entity =>

@@ -1,0 +1,231 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавление / Редактирование продукции</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+    
+       
+    <h1 id="form-title">Добавление продукции</h1>
+    
+    <main>
+        <form id="product-form">
+
+            <div class="form-group">
+                <label for="article">Артикул *</label>
+                <input type="text" id="article" required maxlength="50">
+            </div>
+
+            <div class="form-group">
+                <label for="product-type">Тип продукции *</label>
+                <input type="number" id="product-type"/>
+            </div>
+
+            <div class="form-group">
+                <label for="name">Наименование *</label>
+                <input type="text" id="name" required maxlength="100">
+            </div>
+
+            <div class="form-group">
+                <label for="min-price">Мин. стоимость для партнера (руб) *</label>
+                <input type="number" id="min-price" step="0.01" min="0" required>
+            </div>
+
+            <div class="form-group">
+                <label for="roll-width">Ширина рулона (м) *</label>
+                <input type="number" id="roll-width" step="0.01" min="0" required>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+                <button type="button" class="btn btn-secondary" id="cancel-btn">Отмена</button>
+            </div>
+
+            <div id="message-area" class="message"></div>
+        </form>
+
+        <br />
+        <br />
+
+        <h1 id="form-edit">Редактирование продукции</h1>
+        <form id="product-form-edit">
+
+            <div>
+                <label>ID *</label>
+                <input type="number" id="product-id" name="id">
+                <button type="button" id="load-btn">Загрузить</button>
+            </div>
+
+            <div>
+                <label>Артикул *</label>
+                <input type="text" id="article-edit" required maxlength="50">
+            </div>
+
+            <div>
+                <label>Тип продукции *</label>
+                <select id="product-type-edit" required>
+                    <option value="">-- Выберите тип --</option>
+                </select>
+            </div>
+
+            <div>
+                <label>Наименование *</label>
+                <input type="text" id="name-edit" required maxlength="100">
+            </div>
+
+            <div>
+                <label>Мин. стоимость для партнера (руб) *</label>
+                <input type="number" id="min-price-edit" step="0.01" min="0" required>
+            </div>
+
+            <div>
+                <label>Ширина рулона (м) *</label>
+                <input type="number" id="roll-width-edit" step="0.01" min="0" required>
+            </div>
+
+            <div>
+                <button type="submit" class="btn-put">Изменить</button>
+            </div>
+
+            <div id="message-area" class="message"></div>
+        </form>
+        <br />
+        <br />
+        <button type="button" id="cancel">Отмена</button>
+    </main>
+    <script>
+
+        const API_BASE = 'https://localhost:7026/api/products';
+
+        // POST: Отправитьт данные
+        async function postProscription() {
+
+            // Собираем данные из формы
+            const article = document.getElementById('article').value;
+            const productTypeId = document.getElementById('product-type').value;
+            const name = document.getElementById('name').value;
+            const minPartnerPrice = document.getElementById('min-price').value;
+            const rollWidth = document.getElementById('roll-width').value;
+
+            const data = {
+                article: article || null,
+                productTypeId: productTypeId || null,
+                name: name || null,
+                minPartnerPrice: minPartnerPrice || null,
+                rollWidth: rollWidth || null
+            };
+
+            const myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+
+            // Настраиваем параметры запроса
+            const requestOptions = {
+                method: "POST",
+                headers: myHeaders,
+                body: JSON.stringify(data),
+                redirect: "follow"
+            };
+
+            const response = await fetch(`${API_BASE}/Post`, requestOptions);
+            const result = await response.json(); 
+
+        }
+
+        // PUT: редактировать данные
+        async function putPostsription() {
+
+            const id = document.getElementById('product-id').value;
+            const article = document.getElementById('article-edit').value;
+            const productTypeId = document.getElementById('product-type-edit').value;
+            const name = document.getElementById('name-edit').value;
+            const minPartnerPrice = document.getElementById('min-price-edit').value;
+            const rollWidth = document.getElementById('roll-width-edit').value;
+
+            const myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+
+            const raw = JSON.stringify({
+                article: article || null,
+                productTypeId: productTypeId || null,
+                name: name || null,
+                minPartnerPrice: minPartnerPrice || null,
+                rollWidth: rollWidth || null
+            });
+
+            const requestOptions = {
+                method: "PUT",
+                headers: myHeaders,
+                body: raw,
+                redirect: "follow"
+            };
+
+            const respons = await fetch(`${API_BASE}/Put/${id}`, requestOptions);
+            const result = await respons.json();
+
+        }
+
+        // DELETE: удаление данных
+        async function deleteProscript() {
+
+            const id = document.getElementById('product-id').value;
+            const article = document.getElementById('article-edit').value;
+            const productTypeId = document.getElementById('product-type-edit').value;
+            const name = document.getElementById('name-edit').value;
+            const minPartnerPrice = document.getElementById('min-price-edit').value;
+            const rollWidth = document.getElementById('roll-width-edit').value;
+
+            const myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+
+            const raw = JSON.stringify({
+                "id": id,
+                article: article || null,
+                productTypeId: productTypeId || null,
+                name: name || null,
+                minPartnerPrice: minPartnerPrice || null,
+                rollWidth: rollWidth || null
+            });
+
+            const requestOptions = {
+                method: "DELETE",
+                headers: myHeaders,
+                body: raw,
+                redirect: "follow"
+            };
+
+            const respons = await fetch(`${API_BASE}/Delete/${id}`, requestOptions);
+            const result = await respons.json();
+
+        }
+
+        document.getElementById('load-btn').addEventListener('click', () => {
+            const id = document.getElementById('product-id').value;
+            if (id) loadProduct(id);
+        });
+
+
+        // функция для вывода редактирования данных
+        async function fillEditFormById() {
+
+            const productId = document.getElementById('product-id').value;
+            const response = await fetch(`${API_BASE}/GetId/${productId}`);
+            const product = await response.json();
+
+            document.getElementById('article-edit').value = product.article || '';
+            document.getElementById('product-type-edit').value = product.productTypeId || '';
+            document.getElementById('name-edit').value = product.name || '';
+            document.getElementById('min-price-edit').value = product.minPartnerPrice || 0;
+            document.getElementById('roll-width-edit').value = product.rollWidth || 0;
+
+        }
+
+        document.getElementById('cancel').addEventListener('click', () => {
+            window.location.href = 'Products.html';
+        });
+    </script>
+</body>
+</html>

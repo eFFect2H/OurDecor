@@ -15,7 +15,7 @@ namespace OurDecor.Controller
         public decimal WidthRoll { get; set; }
     }
 
-    [Route("api/Product")]
+    [Route("api/products")]
     [ApiController]
     public class ProductController : ControllerBase
     {
@@ -53,6 +53,13 @@ namespace OurDecor.Controller
                 return NotFound();
 
             return Ok(result);
+        }
+
+        [HttpGet("product-types")]
+        public async Task<ActionResult<IEnumerable<ProductTypeImport>>> GetProductTypes()
+        {
+            var types = await _context.ProductType.ToListAsync();
+            return Ok(types);
         }
 
         // POST api/<ProductController>
