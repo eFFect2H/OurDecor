@@ -19,7 +19,7 @@ namespace OurDecor.Controller
     }
 
 
-    [Route("api/Material")]
+    [Route("api/material")]
     [ApiController]
     public class MaterialController : ControllerBase
     {
@@ -32,7 +32,7 @@ namespace OurDecor.Controller
 
         // GET: api/<MaterialController>
         [HttpGet("Get")]
-        public IActionResult Get()
+        public ActionResult<IEnumerable<MaterialDTO>> Get()
         {
             var result = _context.Material
                 .Select(e => new MaterialDTO
@@ -44,8 +44,9 @@ namespace OurDecor.Controller
                     QuantityStock = e.QuantityStock,
                     MinQuantity = e.MinQuantity,
                     QuantityPackage = e.QuantityPackage,
-                    Metering = e.Metering
-
+                    Metering = e.Metering,
+                    MaterialTypeId = e.MaterialTypeId,
+                    
                 }).ToList();
                 
             return Ok(result);

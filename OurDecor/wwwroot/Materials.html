@@ -1,10 +1,143 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <title></title>
+    <meta charset="utf-8">
+    <title>Materials</title>
 </head>
+
 <body>
+
+    <h2>Материалы</h2>
+
+    <button onclick="load()">Загрузка</button>
+
+    <table border="1" id="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Название</th>
+                <th>Тип</th>
+                <th>Цена</th>
+                <th>Колиество</th>
+                <th>Минимум</th>
+                <th>Упаковка</th>
+                <th>Единица</th>
+                <th>TypeId</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <hr>
+
+    <h3>Добавить / Изменить</h3>
+
+    <input id="id" placeholder="Id for update">
+
+    <input id="name" placeholder="Name">
+    <input id="type" placeholder="Type">
+
+    <input id="price" placeholder="Price">
+    <input id="stock" placeholder="Stock">
+
+    <input id="min" placeholder="Min quantity">
+    <input id="package" placeholder="Package">
+
+    <input id="metering" placeholder="Metering">
+    <input id="typeId" placeholder="MaterialTypeId">
+
+    <br><br>
+
+    <button onclick="create()">Добавить</button>
+    <button onclick="update()">Изменить</button>
+
+    <script>
+
+        const api = "https://localhost:7026/api/material";
+
+        async function load() {
+
+            const res = await fetch(api + "/Get");
+            const data = await res.json();
+
+            const tbody = document.querySelector("#table tbody");
+            tbody.innerHTML = "";
+
+            data.forEach(m => {
+
+                const row = `
+                <tr>
+                    <td>${m.id}</td>
+                    <td>${m.nameMaterial}</td>
+                    <td>${m.typeMaterial}</td>
+                    <td>${m.unitPrice}</td>
+                    <td>${m.quantityStock}</td>
+                    <td>${m.minQuantity}</td>
+                    <td>${m.quantityPackage}</td>
+                    <td>${m.metering}</td>
+                    <td>${m.materialTypeId}</td>
+                    <td><button onclick="remove(${m.id})">Delete</button></td>
+                </tr>`;
+
+                tbody.innerHTML += row;
+
+            });
+
+        }
+
+        function getDto() {
+
+            return {
+                id: Number(document.getElementById("id").value),
+                nameMaterial: document.getElementById("name").value,
+                typeMaterial: document.getElementById("type").value,
+                unitPrice: Number(document.getElementById("price").value),
+                quantityStock: Number(document.getElementById("stock").value),
+                minQuantity: Number(document.getElementById("min").value),
+                quantityPackage: Number(document.getElementById("package").value),
+                metering: document.getElementById("metering").value,
+                materialTypeId: Number(document.getElementById("typeId").value)
+            };
+
+        }
+
+        async function create() {
+
+            const dto = getDto();
+
+            await fetch(api + "/Post", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(dto)
+            });
+
+            load();
+        }
+
+        async function update() {
+
+            const dto = getDto();
+
+            await fetch(api + "/Put/" + dto.id, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(dto)
+            });
+
+            load();
+        }
+
+        async function remove(id) {
+
+            await fetch(api + "/Delete/" + id, {
+                method: "DELETE"
+            });
+
+            load();
+        }
+
+    </script>
 
 </body>
 </html>

@@ -42,6 +42,18 @@ namespace OurDecor
                 );
             });
 
+            modelBuilder.Entity<MaterialTypeImport>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+
+                entity.HasData(
+                    new MaterialTypeImport { Id = 1, TypeMaterial = "Бумага", Mariage = 0.7m },
+                    new MaterialTypeImport { Id = 2, TypeMaterial = "Краска", Mariage = 0.5m },
+                    new MaterialTypeImport { Id = 3, TypeMaterial = "Клей", Mariage = 0.15m},
+                    new MaterialTypeImport { Id = 4, TypeMaterial = "Дисперсия", Mariage = 0.2m}
+                );
+            });
+
             modelBuilder.Entity<ProductsImport>(entity =>
             {
                 entity.HasKey(e => e.Id);

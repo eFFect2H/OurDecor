@@ -28,9 +28,9 @@ namespace OurDecor.Controller
         }
 
         [HttpGet("Get")]
-        public async Task<IActionResult> Get()
+        public async Task<ActionResult<IEnumerable<ProductDTO>>> Get()
         {
-            var result = _context.Products
+            var result = await _context.Products
                 .Select(e => new ProductDTO
                 {
                     Id = e.Id,
@@ -71,6 +71,7 @@ namespace OurDecor.Controller
 
             var prod = new ProductsImport
             {
+                TypeProduct = product.TypeProduct,
                 NameProduct = product.NameProduct,
                 Article = product.Article,
                 MinPricePartner = product.MinPricePartner,
@@ -92,6 +93,7 @@ namespace OurDecor.Controller
             if (result == null)
                 return NotFound();
 
+            result.TypeProduct = value.TypeProduct;
             result.NameProduct = value.NameProduct;
             result.Article = value.Article;
             result.MinPricePartner = value.MinPricePartner;
