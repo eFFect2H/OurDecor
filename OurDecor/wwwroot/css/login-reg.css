@@ -1,0 +1,114 @@
+﻿body {
+    font-family: 'Gabriola', serif;
+    background-color: #FFFFFF;
+    margin: 0;
+    padding: 20px;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    background-color: #BBD9B2;
+    padding: 15px 30px;
+    border-radius: 8px;
+    margin-bottom: 40px;
+    width: fit-content;
+    max-width: 90%;
+}
+
+.logo {
+    height: 60px;
+    width: auto;
+    margin-right: 20px;
+}
+
+header h1 {
+    color: #2D6033;
+    font-size: 2.2em;
+    margin: 0;
+    white-space: nowrap;
+}
+
+.forms-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+    max-width: 900px;
+    width: 100%;
+}
+
+.form-card {
+    flex: 1 1 300px;
+    background-color: #FFFFFF;
+    border: 2px solid #BBD9B2;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+    .form-card h2 {
+        color: #2D6033;
+        font-size: 2em;
+        margin-top: 0;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+    .form-group label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #2D6033;
+        font-size: 1.2em;
+    }
+
+    .form-group input,
+    .form-group select {
+        width: 100%;
+        padding: 10px 15px;
+        border: 1px solid #BBD9B2;
+        border-radius: 5px;
+        font-family: 'Gabriola', serif;
+        font-size: 1.2em;
+        box-sizing: border-box;
+        background-color: #FFFFFF;
+    }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #2D6033;
+            box-shadow: 0 0 5px rgba(45,96,51,0.3);
+        }
+
+.btn {
+    font-family: 'Gabriola', serif;
+    font-size: 1.3em;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    width: 100%;
+    background-color: #2D6033;
+    color: white;
+}
+
+    .btn:hover {
+        background-color: #1e4422;
+    }
+
+br {
+    display: none;
+}

@@ -1,0 +1,16 @@
+{
+  "profiles": {
+    "Telegrame_Test": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker",
+      "publishAllPorts": true,
+      "useSSL": false
+    },
+    "WSL": {
+      "commandName": "WSL2",
+      "distributionName": ""
+    }
+  }
+}

@@ -1,0 +1,11 @@
+﻿services:
+  telegram-bot:
+    image: telegram-bot
+    container_name: telegram-bot
+    restart: unless-stopped
+
+    volumes:
+      - ./appsettings.json:/app/appsettings.json:ro
+      - ./config:/app/config
+      - ./data:/app/data
+      
